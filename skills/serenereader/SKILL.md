@@ -5,7 +5,7 @@ license: MIT
 compatibility: Needs network access to https://serenereader.com and a SereneReader API key from a Pro or Team plan.
 metadata:
   author: joneslabs-llc
-  version: "1.1"
+  version: "1.2"
 ---
 
 # SereneReader API
@@ -71,7 +71,7 @@ curl -sS https://serenereader.com/api/v1/feeds \
       "id": "65f0c1a2b3c4d5e6f7a8b9c0",
       "title": "Example Blog",
       "url": "https://example.com/feed.xml",
-      "iconUrl": "https://example.com/favicon.ico",
+      "iconUrl": "https://serenereader.com/api/favicon/favicons/shared/<id>.png",
       "unreadCount": 12,
       "folder": "Tech"
     }
@@ -82,6 +82,7 @@ curl -sS https://serenereader.com/api/v1/feeds \
 - `id` is the subscription ID. Pass it as `feedId` to `/api/v1/articles`.
 - `title` is the user's custom title if they set one, otherwise the feed's own title. Feeds are sorted by title.
 - `iconUrl` and `folder` can be `null`. `folder` is the folder name.
+- `iconUrl` is a URL to SereneReader's stored copy of the feed icon, or `null` when none is stored. It is never the publisher's own favicon URL.
 - `url` is the feed URL, not the website's home page.
 - The API doesn't report fetch errors or when a feed last published.
 
@@ -110,7 +111,7 @@ Query parameters, all optional:
       "title": "How we cut our build time in half",
       "url": "https://example.com/posts/build-time",
       "feedName": "Example Blog",
-      "feedIcon": "https://example.com/favicon.ico",
+      "feedIcon": "https://serenereader.com/api/favicon/favicons/shared/<id>.png",
       "author": "Jane Doe",
       "publishedAt": "2026-11-07T14:30:00.000Z",
       "snippet": "A short excerpt from the article...",
@@ -127,6 +128,7 @@ Query parameters, all optional:
 - `total` is the number of articles that match the filters. `hasMore` is `true` when `offset + limit < total`.
 - `snippet` is a short excerpt, not the full article. To read the full text, open `url`.
 - `author`, `publishedAt`, `snippet` and `feedIcon` can be `null`. `url` can be an empty string.
+- `feedIcon` is a URL to SereneReader's stored copy of the feed icon, or `null` when none is stored. It is never the publisher's own favicon URL.
 - Articles the user hid in SereneReader are left out.
 - There is no filter for unread or starred articles. Filter on `isRead` and `isStarred` after you fetch.
 
